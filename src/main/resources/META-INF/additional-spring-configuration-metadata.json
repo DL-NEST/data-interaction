@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "spring.jpa.hibernate.format_sql",
+      "type": "java.lang.String",
+      "description": "Description for spring.jpa.hibernate.format_sql."
+    },
+    {
+      "name": "定义端口",
+      "type": "java.lang.String",
+      "description": "Description for 定义端口."
+    }
+  ] }

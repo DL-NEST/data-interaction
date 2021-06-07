@@ -1,0 +1,12 @@
+server:
+  port: 8024
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/data-interaction
+    username: root
+    password: 888888
+    driver-class-name: com.mysql.cj.jdbc.Driver
