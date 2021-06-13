@@ -10,14 +10,12 @@ import org.springframework.stereotype.Component;
  * mqtt配置类，获取mqtt连接
  */
 @Component
-@Configuration
-@ConfigurationProperties(MqttConfiguration.PREFIX)
+@ConfigurationProperties("spring.mqtt")
 public class MqttConfiguration {
 
     @Autowired
     private MqttPushClient mqttPushClient;
     //指定配置文件application-local.properties中的属性名前缀
-    public static final String PREFIX = "ximo.mqtt";
     private String host;
     private String clientId;
     private String userName;
