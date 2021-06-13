@@ -9,5 +9,15 @@
       "name": "定义端口",
       "type": "java.lang.String",
       "description": "Description for 定义端口."
+    },
+    {
+      "name": "spring.mqtt",
+      "type": "java.lang.String",
+      "description": "Description for spring.mqtt."
+    },
+    {
+      "name": "spring.spring.mqtt.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.spring.mqtt.username."
     }
   ] }
