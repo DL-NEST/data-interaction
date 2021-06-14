@@ -57,7 +57,7 @@ public class MqttPushClient{
      * @param topic 主题名
      * @param pushMessage 消息
      */
-    public void publisha(String topic, String pushMessage) {
+    public void publish(String topic, String pushMessage) {
         publish(0, false, topic, pushMessage);
     }
 
