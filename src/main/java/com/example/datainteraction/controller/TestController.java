@@ -1,21 +1,25 @@
 package com.example.datainteraction.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.hutool.json.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
-@Controller
+import java.util.Map;
+
+@RestController
 public class TestController {
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
-    }
-    @PostMapping("/log")
-    public String Login(@RequestBody String username,
-                        @RequestBody String password){
-        return "OK";
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @RequestMapping(value = "/test")
+    private Object getRestResponse() {
+        String url = "http://118.31.64.160:8081/api/v4/nodes/emqx@127.0.0.1/stats";
+        Map<String,Object>result = restTemplate.getForObject(url, Map.class);
+        System.out.print(result.get("data"));
+        return result.get("data");
     }
 }
 
