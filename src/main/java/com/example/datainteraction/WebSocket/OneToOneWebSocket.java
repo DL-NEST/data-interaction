@@ -1,5 +1,7 @@
 package com.example.datainteraction.WebSocket;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -55,11 +57,12 @@ public class OneToOneWebSocket {
     public void onMessage(String message, Session session) {
         log.info("服务端收到客户端[{}]的消息[{}]", session.getId(), message);
         try {
-            MyMessage myMessage = JSON.parseObject(message, MyMessage.class);
-            if (myMessage != null) {
-                Session toSession = clients.get(myMessage.getUserId());
+            JSONObject jsonObject= JSON.parseObject(message);
+            if (jsonObject != null) {
+                Session toSession = clients.get(jsonObject.getString("UserId"));
+                log.info(String.valueOf(toSession));
                 if (toSession != null) {
-                    this.sendMessage(myMessage.getMessage(), toSession);
+                    this.sendMessage(jsonObject.getString("Message"), toSession);
                 }
             }
         } catch (Exception e) {
