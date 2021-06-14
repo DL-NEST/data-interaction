@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date：2020/8/26 16:12
  */
 @RestController
-@RequestMapping("mqttDemo")
+@RequestMapping("mqtt")
 public class MqttDemoController {
     @Autowired
     private MqttPushClient mqttPushClient;
@@ -25,12 +25,15 @@ public class MqttDemoController {
         mqttPushClient.publish("test_queue","这是一条测试消息");
     }
 
-    @RequestMapping("testPublishMessage2")
-    public void testPublishMessage2(String message){
-        mqttPushClient.publish("test_queue",message);
+    @RequestMapping("send")
+    public void testPublishMessage2(String theme,String message){
+        mqttPushClient.publish(theme,message);
     }
+
     @RequestMapping("/test")
     public String test(){
         return "test";
     }
+
+//    @RequestMapping("")
 }
