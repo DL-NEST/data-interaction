@@ -42,10 +42,7 @@ public class PushCallback implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage message) {
         // subscribe后得到的消息会执行到这里面,这里在控制台有输出
-        log.info("接收消息主题 : " + topic);
-        log.info("接收消息Qos : " + message.getQos());
-        log.info("接收消息内容 : " + new String(message.getPayload()));
-
+        log.info("接收消息主题:{},Qos:{},接收消息内容:{}",topic,message.getQos(),new String(message.getPayload()));
     }
 
 }
