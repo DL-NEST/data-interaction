@@ -32,7 +32,7 @@ public class PushCallback implements MqttCallback {
      */
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-
+        log.info("数据更新完成");
     }
 
     /**

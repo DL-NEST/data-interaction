@@ -2,35 +2,66 @@ package com.example.datainteraction.entiy;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 // 定义实体类
 
 @Entity
-@Data
+@Table(name = "User")
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @Column
     private String username;
 
+    @Column
     private String userphone;
 
-    private  String userpassword;
+    @Column
+    private String userpassword;
 
-//    private Boolean srt(){
-//
-//    }
-//    public String getname(){
-//        return username;
-//    }
-//    public String getphone(){
-//        return userphone;
-//    }
-//    public String getpassword(){
-//        return userpassword;
-//    }
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datatime;
+
+    public Date getDatatime() {
+        return datatime;
+    }
+
+    public void setDatatime(Date datatime) {
+        this.datatime = datatime;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUserphone() {
+        return userphone;
+    }
+
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
+    }
+
+    public String getUserpassword() {
+        return userpassword;
+    }
+
+    public void setUserpassword(String userpassword) {
+        this.userpassword = userpassword;
+    }
 }
