@@ -1,9 +1,17 @@
 package com.example.datainteraction.config;
 
+import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.HttpClientConnectionManager;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicHeader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -13,6 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Configuration
@@ -31,14 +42,14 @@ public class RestTemplateConfig {
      */
     @Bean
     public HttpClientConnectionManager poolingHttpClientConnectionManager() {
-        /*// 注册http和https请求
+        // 注册http和https请求
         Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
                 .register("http", PlainConnectionSocketFactory.getSocketFactory())
                 .register("https", SSLConnectionSocketFactory.getSocketFactory())
                 .build();
-        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager(registry);*/
+        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager(registry);
 
-        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+//        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
         // 最大连接数
         poolingHttpClientConnectionManager.setMaxTotal(500);
         // 同路由并发数（每个主机的并发）
@@ -57,13 +68,13 @@ public class RestTemplateConfig {
         // 设置http连接管理器
         httpClientBuilder.setConnectionManager(poolingHttpClientConnectionManager);
 
-        /*// 设置重试次数
-        httpClientBuilder.setRetryHandler(new DefaultHttpRequestRetryHandler(3, true));*/
+        //设置重试次数
+        httpClientBuilder.setRetryHandler(new DefaultHttpRequestRetryHandler(3, true));
 
         // 设置默认请求头
-        /*List<Header> headers = new ArrayList<>();
+        List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Connection", "Keep-Alive"));
-        httpClientBuilder.setDefaultHeaders(headers);*/
+        httpClientBuilder.setDefaultHeaders(headers);
 
         return httpClientBuilder.build();
     }
