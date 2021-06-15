@@ -1,5 +1,6 @@
 package com.example.datainteraction.mqtt;
 
+import com.example.datainteraction.WebSocket.OneToManyWebSocket;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -43,6 +44,9 @@ public class PushCallback implements MqttCallback {
     public void messageArrived(String topic, MqttMessage message) {
         // subscribe后得到的消息会执行到这里面,这里在控制台有输出
         log.info("接收消息主题:{},Qos:{},接收消息内容:{}",topic,message.getQos(),new String(message.getPayload()));
+        if (topic.equals("sys")){
+            OneToManyWebSocket.sendlogMessage(String.valueOf(message));
+        }
     }
-
+//    private void refresh
 }

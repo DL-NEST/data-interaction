@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -55,7 +56,8 @@ public class OneToManyWebSocket {
     @OnMessage
     public void onMessage(String message, Session session) {
         log.info("服务端收到客户端[{}]的消息:{}", session.getId(), message);
-        this.sendMessage(message, session);
+//        this.sendMessage(message, session);
+        this.sendlogMessage(message);
     }
 
     @OnError
@@ -64,13 +66,20 @@ public class OneToManyWebSocket {
         error.printStackTrace();
     }
 
+//    /**
+//     * 实现服务器主动推送
+//     */
+//    public void sendMessage(String message) throws IOException {
+//        Session.getBasicRemote().sendText(message);
+//    }
+
     /**
      * 群发消息
      *
      * @param message
      *            消息内容
      */
-    private void sendMessage(String message, Session fromSession) {
+    public static void sendMessage(String message, Session fromSession) {
         for (Map.Entry<String, Session> sessionEntry : clients.entrySet()) {
             Session toSession = sessionEntry.getValue();
             // 排除掉自己
@@ -78,6 +87,15 @@ public class OneToManyWebSocket {
                 log.info("服务端给客户端[{}]发送消息{}", toSession.getId(), message);
                 toSession.getAsyncRemote().sendText(message);
             }
+        }
+    }
+//    群发不见外
+    public static void sendlogMessage(String message) {
+        for (Map.Entry<String, Session> sessionEntry : clients.entrySet()) {
+            Session toSession = sessionEntry.getValue();
+            // 排除掉自己
+            log.info("服务端给客户端[{}]发送消息{}", toSession.getId(), message);
+            toSession.getAsyncRemote().sendText(message);
         }
     }
 }

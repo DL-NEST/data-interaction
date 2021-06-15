@@ -20,8 +20,12 @@ public class MqttSubClient {
 
     private void subScribeDataPublishTopic(){
         //订阅test_queue主题
-       subscribe("test_queue");
-        subscribe("Blink");
+//       subscribe("test_queue");
+       subscribe("Blink");
+       subscribe("sys",2);
+       subscribe("temperature");
+        subscribe("count");
+        subscribe("switch");
     }
 
     /**
@@ -44,7 +48,7 @@ public class MqttSubClient {
             MqttClient client = MqttPushClient.getClient();
             if (client == null) return;
             client.subscribe(topic, qos);
-            log.info("订阅主题:{}",topic);
+            log.info("订阅主题:{},qos:{}",topic,qos);
         } catch (MqttException e) {
             e.printStackTrace();
         }

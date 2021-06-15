@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import com.example.datainteraction.WebSocket.OneToManyWebSocket;
 
 import java.util.Map;
 
@@ -20,5 +21,10 @@ public class TestController {
         Object res = result.get("data");
         return res;
     }
+
+//    @RequestMapping(value = "/test1")
+//    private String get() {
+//        OneToManyWebSocket.s
+//    }
 }
 
