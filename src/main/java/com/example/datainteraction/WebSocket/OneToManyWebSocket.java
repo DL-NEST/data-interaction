@@ -68,7 +68,7 @@ public class OneToManyWebSocket {
     public void onMessage(String message, Session session) {
         log.info("服务端收到客户端[{}]的消息:{}", session.getId(), message);
 //        this.sendMessage(message, session);
-        this.sendlogMessage(message);
+//        this.sendlogMessage(message);
     }
 
     @OnError
@@ -76,14 +76,6 @@ public class OneToManyWebSocket {
         log.error("发生错误");
         error.printStackTrace();
     }
-
-//    /**
-//     * 实现服务器主动推送
-//     */
-//    public void sendMessage(String message) throws IOException {
-//        Session.getBasicRemote().sendText(message);
-//    }
-
     /**
      * 群发消息
      *
@@ -112,7 +104,7 @@ public class OneToManyWebSocket {
     public String getdata(){
         JSONObject datas = new JSONObject();
         UserController user = new UserController();
-        datas.put("empx","连接成功");
+        datas.put("websocket","连接成功");
         return datas.toJSONString();
     }
 }

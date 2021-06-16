@@ -5,10 +5,7 @@ import com.example.datainteraction.entiy.User;
 import com.example.datainteraction.repository.Temperaturerepository;
 import com.example.datainteraction.repository.Userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import com.example.datainteraction.entiy.temperature;
 
@@ -37,22 +34,24 @@ public class PcController {
         String url = "http://118.31.64.160:8081/api/v4/nodes/emqx@127.0.0.1/stats";
         Map result = restTemplate.getForObject(url, Map.class);
         Object res = result.get("data");
-        return res;
+        return JSONObject.toJSONString(res);
     }
 
     @ResponseBody
     @RequestMapping(value = "/wd")
     public Object wd() {
-        Object wd = temperaturerepository.findAll();
+        List<temperature> wd = temperaturerepository.findAll();
         System.out.print(wd);
-        return wd;
+        return JSONObject.toJSONString(wd);
     }
-    @RequestMapping(value = "/add")
-    public Object add() {
+    @ResponseBody
+    @PostMapping(value = "/add")
+    public Object add(@RequestBody JSONObject jsonParam) {
+        System.out.println(jsonParam.toJSONString());//print
         temperature temperature = new temperature();
-        temperature.setClassname("物联网zk1000");
-        temperature.setTemperature((float) 37.3);
-        temperature.setDatatime1(new Date());
+        temperature.setClassname(jsonParam.get("classname").toString());// 班级
+        temperature.setTemperature((float)jsonParam.get("temperature"));// 温度
+        temperature.setDatatime1(new Date());   //时间
         temperaturerepository.save(temperature);
         JSONObject savetest = new JSONObject();
         savetest.put("运行结果","成功");
