@@ -25,7 +25,7 @@ public class UserController {
     public String hello() {
         return "test";
     }
-
+    //  对数据的增加
     @GetMapping(path="/save")
     public JSONObject save() {
         User user = new User();
@@ -36,7 +36,34 @@ public class UserController {
         user.setDatatime(new Date());
         userrepository.save(user);
         JSONObject savetest = new JSONObject();
-        savetest.put("path",userrepository.findById(2567).get().getUsername());
+        savetest.put("运行结果","成功");
+        return savetest;
+    }
+    //    对数据的删除
+    @GetMapping(path="/delete")
+    public void delete () {
+        userrepository.deleteAll();//全删，用了都说好
+    }
+    //根据主键id查询
+    @GetMapping(path="/query")
+    public JSONObject cx () {
+        JSONObject savetest = new JSONObject();
+        savetest.put("运行结果","成功");
+        return savetest;
+    }
+    //根据主键内容id删除
+    @GetMapping(path="deleteid")
+    public JSONObject deleteid () {
+        JSONObject savetest = new JSONObject();
+        userrepository.deleteById(14);
+        savetest.put("运行结果","成功");
+        return savetest;
+    }
+    //查询到具内容
+    @GetMapping(path="/xiugai")
+    public JSONObject cg () {
+        JSONObject savetest = new JSONObject();
+        savetest.put("运行结果",userrepository.findAll().get(0).getUserpassword());
         return savetest;
     }
 }
