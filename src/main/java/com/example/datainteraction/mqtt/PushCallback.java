@@ -2,6 +2,8 @@ package com.example.datainteraction.mqtt;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.datainteraction.WebSocket.OneToManyWebSocket;
+import com.example.datainteraction.entiy.temperature;
+import com.example.datainteraction.repository.Temperaturerepository;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -16,6 +18,8 @@ import java.util.Date;
 public class PushCallback implements MqttCallback {
     @Autowired
     private MqttConfiguration mqttConfiguration;
+    @Autowired
+    private Temperaturerepository temperaturerepository;
 
     @Override
     public void connectionLost(Throwable cause) {        // 连接丢失后，一般在这里面进行重连
@@ -54,9 +58,15 @@ public class PushCallback implements MqttCallback {
             OneToManyWebSocket.sendlogMessage(datas.toJSONString());
         } else if (topic.equals("temperature")) {//温度的回调
             JSONObject datas = new JSONObject();
-            datas.put("温度",message);
+            datas.put("温度",new String(message.getPayload()));
             datas.put("time",new Date());
-            OneToManyWebSocket.sendlogMessage(datas.toJSONString());
+            OneToManyWebSocket.sendlogMessage(datas.toJSONString());// 推送
+            temperature temperature = new temperature();
+            temperature.setClassname("物联网xxx");// 班级
+            temperature.setTemperature(Float.parseFloat(new String(message.getPayload())));// 温度
+            temperature.setDatatime1(new Date());   //时间
+            temperaturerepository.save(temperature);
+
         } else if (topic.equals("count")) {
             OneToManyWebSocket.sendlogMessage("通过数：" + message);
         } else if (topic.equals("switch")) {

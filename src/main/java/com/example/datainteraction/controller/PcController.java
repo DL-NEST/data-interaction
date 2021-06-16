@@ -50,12 +50,18 @@ public class PcController {
         System.out.println(jsonParam.toJSONString());//print
         temperature temperature = new temperature();
         temperature.setClassname(jsonParam.get("classname").toString());// 班级
-        temperature.setTemperature((float)jsonParam.get("temperature"));// 温度
+        temperature.setTemperature(Float.parseFloat(jsonParam.get("temperature").toString()));// 温度
         temperature.setDatatime1(new Date());   //时间
         temperaturerepository.save(temperature);
         JSONObject savetest = new JSONObject();
         savetest.put("运行结果","成功");
         return savetest;
+    }
+    @ResponseBody
+    @PostMapping(value = "/del")
+    public void colse(@RequestBody JSONObject jsonParam) {
+        temperature temperature = new temperature();
+        temperaturerepository.deleteAll();
     }
 
 //    @GetMapping(path="/savet")
