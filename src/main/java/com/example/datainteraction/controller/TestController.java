@@ -15,12 +15,13 @@ public class TestController {
     RestTemplate restTemplate;
 
     @RequestMapping(value = "/test")
-    private Object getRestResponse() {
+    public Object getRestResponse() {
         String url = "http://118.31.64.160:8081/api/v4/nodes/emqx@127.0.0.1/stats";
         Map result = restTemplate.getForObject(url, Map.class);
         Object res = result.get("data");
         return res;
     }
+
 
 //    @RequestMapping(value = "/test1")
 //    private String get() {

@@ -1,11 +1,19 @@
 package com.example.datainteraction.WebSocket;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.datainteraction.controller.UserController;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+import com.example.datainteraction.controller.TestController;
 
+import javax.annotation.PostConstruct;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,9 +26,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 @ServerEndpoint(value = "/websocket/map")
+@Controller
 @Component
 public class OneToManyWebSocket {
-
+    @Autowired
+    RestTemplate restTemplate;
     /** 记录当前在线连接数 */
     private static AtomicInteger onlineCount = new AtomicInteger(0);
 
@@ -35,6 +45,7 @@ public class OneToManyWebSocket {
         onlineCount.incrementAndGet(); // 在线数加1
         clients.put(session.getId(), session);
         log.info("有新连接加入：{}，当前在线人数为：{}", session.getId(), onlineCount.get());
+        sendlogMessage(this.getdata());
     }
 
     /**
@@ -97,5 +108,11 @@ public class OneToManyWebSocket {
             log.info("服务端给客户端[{}]发送消息{}", toSession.getId(), message);
             toSession.getAsyncRemote().sendText(message);
         }
+    }
+    public String getdata(){
+        JSONObject datas = new JSONObject();
+        UserController user = new UserController();
+        datas.put("empx","连接成功");
+        return datas.toJSONString();
     }
 }

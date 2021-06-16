@@ -45,7 +45,7 @@ public class PushCallback implements MqttCallback {
         // subscribe后得到的消息会执行到这里面,这里在控制台有输出
         log.info("接收消息主题:{},Qos:{},接收消息内容:{}", topic, message.getQos(), new String(message.getPayload()));
         if (topic.equals("sys")) {
-            OneToManyWebSocket.sendlogMessage("设备：" + message);
+            OneToManyWebSocket.sendlogMessage("update");
         } else if (topic.equals("temperature")) {
             OneToManyWebSocket.sendlogMessage("温度：" + message);
         } else if (topic.equals("count")) {

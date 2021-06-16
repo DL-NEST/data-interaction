@@ -1,4 +1,79 @@
 package com.example.datainteraction.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.datainteraction.entiy.User;
+import com.example.datainteraction.repository.Temperaturerepository;
+import com.example.datainteraction.repository.Userrepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import com.example.datainteraction.entiy.temperature;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+@RequestMapping(path="/pc")
+@RestController
 public class PcController {
+    @Autowired
+    RestTemplate restTemplate;
+    @Autowired
+    private Temperaturerepository temperaturerepository;
+
+    @RequestMapping(value = "/csh")
+    public Object getcsh() {
+        JSONObject csh = new JSONObject();
+        Object emqx=this.getRestResponse();
+        csh.put("emqx",emqx);
+        return csh;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/empx")
+    public Object getRestResponse() {
+        String url = "http://118.31.64.160:8081/api/v4/nodes/emqx@127.0.0.1/stats";
+        Map result = restTemplate.getForObject(url, Map.class);
+        Object res = result.get("data");
+        return res;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/wd")
+    public Object wd() {
+        Object wd = temperaturerepository.findAll();
+        System.out.print(wd);
+        return wd;
+    }
+    @RequestMapping(value = "/add")
+    public Object add() {
+        temperature temperature = new temperature();
+        temperature.setClassname("物联网zk1000");
+        temperature.setTemperature((float) 37.3);
+        temperature.setDatatime1(new Date());
+        temperaturerepository.save(temperature);
+        JSONObject savetest = new JSONObject();
+        savetest.put("运行结果","成功");
+        return savetest;
+    }
+
+//    @GetMapping(path="/savet")
+//    public JSONObject save() {
+//        User user = new User();
+//        user.setId(2344);
+//        user.setUsername("王五");
+//        user.setUserphone("1244241535");
+//        user.setUserpassword("dgagqeag");
+//        user.setDatatime(new Date());
+//        userrepository.save(user);
+//        JSONObject savetest = new JSONObject();
+//        savetest.put("运行结果", "成功");
+//        return savetest;
+//    }
+//    @RequestMapping(value = "/test1")
+//    private String get() {
+//        OneToManyWebSocket.s
+//    }
 }
