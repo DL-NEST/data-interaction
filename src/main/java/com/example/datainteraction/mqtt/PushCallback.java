@@ -58,8 +58,9 @@ public class PushCallback implements MqttCallback {
             OneToManyWebSocket.sendlogMessage(datas.toJSONString());
         } else if (topic.equals("temperature")) {//温度的回调
             JSONObject datas = new JSONObject();
+            datas.put("classname","物联网xxx");
             datas.put("温度",new String(message.getPayload()));
-            datas.put("time",new Date());
+            datas.put("time",new Date().toString());
             OneToManyWebSocket.sendlogMessage(datas.toJSONString());// 推送
             temperature temperature = new temperature();
             temperature.setClassname("物联网xxx");// 班级
