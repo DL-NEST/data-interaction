@@ -22,6 +22,10 @@ public class TestController {
     }
     @RequestMapping("/static")
     public String test2(){
+        return "join";
+    }
+    @RequestMapping("/static1")
+    public String test3(){
         return "index";
     }
 

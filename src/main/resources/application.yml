@@ -12,8 +12,8 @@ spring:
     password: 888888
     driver-class-name: com.mysql.cj.jdbc.Driver
   mqtt:
-    clientid: testcqaevef
-    host: tcp://118.31.64.160:1883
+    clientid: testcqaevefffgqe
+    host: tcp://0.0.0.0:1883
     password: qq2002123
     timeout: 1000
     keepalive: 10
