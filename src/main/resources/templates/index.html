@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>CodePen - Job Recruiter Dashboard UI</title>
+<!--  生产环境-->
   <link th:href="@{css/normalize.css}" rel="stylesheet" type="text/css" />
   <link th:href="@{style.css}" rel="stylesheet" type="text/css" />
+<!--  工作环境-->
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/css/normalize.css">
+<!--  手机端兼容-->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
@@ -315,10 +320,11 @@
     </div>
   </div>
 </div>
-<!-- partial -->
+<!-- 生产环境 -->
   <script type="text/javascript"  th:src="@{js/jquery.min.js}"></script>
   <script type="text/javascript"  th:src="@{script.js}"></script>
-
-
+<!--测试环境-->
+  <script type="text/javascript"  src="../static/js/jquery.min.js"></script>
+  <script type="text/javascript"  src="../static/script.js"></script>
 </body>
 </html>
