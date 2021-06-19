@@ -12,6 +12,10 @@ html, body {
   margin: 0;
 }
 
+h1{
+  color: #ffffff;
+}
+
 body {
   font-family: "DM Sans", sans-serif;
   display: flex;
@@ -36,6 +40,7 @@ body {
 a {
   text-decoration: none;
   cursor: pointer;
+  outline:none;
 }
 
 .app-container {
@@ -66,6 +71,7 @@ a {
   overflow: auto;
 }
 .left-area.show {
+  background: #292F3F;
   transform: translateX(0);
   opacity: 1;
   z-index: 88;
@@ -83,6 +89,7 @@ a {
   color: var(--light-font);
   margin-bottom: 32px;
   transition: 0.2s;
+  outline:none;
 }
 .item-link.active {
   color: var(--dark-font);
@@ -104,7 +111,7 @@ a {
   flex: 1;
   height: 100%;
   overflow-y: auto;
-  background: linear-gradient(97deg, #f2f7fd 0%, #f0f4fd 90%);
+  background: #292F3F;
   border-radius: 0 10px 10px 0;
   padding-bottom: 24px;
   position: relative;
@@ -194,6 +201,7 @@ a {
   justify-content: center;
 }
 .access-icon svg {
+  margin: 20px;
   width: 36px;
   height: 36px;
 }
