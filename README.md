@@ -1,2 +1,2 @@
 # data-interaction
-springboot项目库
+springboot对接emqx,基本的登录的登录态管理
